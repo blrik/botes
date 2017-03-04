@@ -1,8 +1,7 @@
 
 <aside>
-    <div class='inner'>
-        <p v-if='!botes.length'>Boo, no botes! Get writing</p>
-    </div>
+    <p class='inner' v-if='!botes.length'>Boo, no botes! Get writing</p>
+    <input type='text' v-else v-model='search' placeholder='enter TITLE your search'>
     <div class='botes'>
         <div class='bote' v-if='botes.length' v-for='bote in botes_sorted'>
             <a href='#' class='remove' @click.prevent='delete_bote(bote.id)'><span class='icon'>&times;</span></a>

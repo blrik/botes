@@ -16,6 +16,7 @@ new Vue({
         botes: [],
         save_timeout: null,
         store: false,
+        search: '',
     },
     computed: {
         word_count: function word_count() {
@@ -24,17 +25,30 @@ new Vue({
             }
             return this.bote.body.trim().split(' ').length;
         },
-        botes_sorted: function botes_sorted() {
-            return this.botes.sort(function(a, b) {
-                return a['last_saved'] < b['last_saved'];
-            });
-        },
         last_saved: function last_saved() {
             if (!this.bote.last_saved) {
                 return 'Soon';
             }
             return moment(this.bote.last_saved).format('DD.MM.YYYY H:mm:ss');
         },
+        botes_sorted: function() {
+            var botes_array = this.botes;
+            var search = this.search;
+            if (!this.search) {
+                return botes_array.sort(function(a, b) {
+                    return a['last_saved'] < b['last_saved'];
+                });
+            }
+            search = search.trim().toLowerCase();
+            botes_array = botes_array.filter(function(item) {
+                if (item.title.toLowerCase().indexOf(search) !== -1) {
+                    return item;
+                }
+            })
+            return botes_array.sort(function(a, b) {
+                return a['last_saved'] < b['last_saved'];
+            });
+        }
     },
     mounted: function mounted() {
         this.fetch_botes();

@@ -48,12 +48,13 @@ aside {
     -ms-flex-direction: column;
 }
 aside .inner {
-    text-align: center;
-}
-aside .inner p {
     margin-top: 10px;
     padding: 10px;
     color: #808080;
+}
+aside input {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 aside .botes {
     overflow-y: auto;
