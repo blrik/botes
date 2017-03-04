@@ -1,8 +1,7 @@
 
 <aside>
     <div class='inner'>
-        <a v-if='botes.length' href='#' @click.prevent='clear_bote'>New bote</a>
-        <p v-else>Boo, no botes! Get writing</p>
+        <p v-if='!botes.length'>Boo, no botes! Get writing</p>
     </div>
     <div class='botes' v-if='botes.length'>
         <div class='bote' v-for='bote in botes_sorted'>
@@ -19,6 +18,7 @@
             </div>
         </div>
     </div>
+    <a v-if='botes.length' href='#' @click.prevent='clear_bote' class='create'>new BOTE</a>
 </aside>
 
 <main>

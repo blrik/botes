@@ -20,7 +20,7 @@ textarea {
 }
 a {
     text-decoration: none;
-    color: black;
+    color: #111;
 }
 a:hover {
     text-decoration: underline;
@@ -32,7 +32,10 @@ a:hover {
     height: 100%;
 }
 aside {
-    overflow-y: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
     min-width: 20%;
     height: 100%;
     border-right: 1px solid #c6c6c6;
@@ -40,14 +43,23 @@ aside {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
 }
 aside .inner {
-    padding: 10px;
     text-align: center;
 }
 aside .inner p {
     margin-top: 10px;
-    color: gray;
+    padding: 10px;
+    color: #808080;
+}
+aside .botes {
+    overflow-y: auto;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
 }
 aside .bote {
     display: -webkit-box;
@@ -101,6 +113,23 @@ aside .bote .bote-inner .body {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+aside .create {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 20px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    text-align: center;
+    font-weight: 700;
+    color: #000;
+    border-top: 1px solid #ffdf2c;
+    background-color: #f8d200;
+}
+aside .create:hover {
+    text-decoration: none;
 }
 main {
     display: -webkit-box;
