@@ -3,8 +3,8 @@
     <div class='inner'>
         <p v-if='!botes.length'>Boo, no botes! Get writing</p>
     </div>
-    <div class='botes' v-if='botes.length'>
-        <div class='bote' v-for='bote in botes_sorted'>
+    <div class='botes'>
+        <div class='bote' v-if='botes.length' v-for='bote in botes_sorted'>
             <a href='#' class='remove' @click.prevent='delete_bote(bote.id)'><span class='icon'>&times;</span></a>
             <div class='bote-inner'>
                 <a href='#' class='title' @click.prevent='open_bote(bote.id)'>
@@ -18,14 +18,15 @@
             </div>
         </div>
     </div>
-    <a v-if='botes.length' href='#' @click.prevent='clear_bote' class='create'>new BOTE</a>
+    <a v-if='store' href='#' @click.prevent='store_botes' class='store'>store BOTE</a>
+    <a v-else-if='botes.length' href='#' @click.prevent='clear_bote' class='clear'>new BOTE</a>
 </aside>
 
 <main>
     <input type='text' placeholder='enter TITLE here...' v-model='bote.title' v-on:keydown='save_bote'>
     <textarea placeholder='enter BOTE here...' v-model='bote.body' v-on:keydown='save_bote'></textarea>
     <footer>
-        <p>Words: {{ word_count }}</p>
-        <p>Saved: {{ last_saved }}</p>
+        <p>words: {{ word_count }}</p>
+        <p>saved: {{ last_saved }}</p>
     </footer>
 </main>

@@ -38,7 +38,7 @@ aside {
     flex-direction: column;
     min-width: 20%;
     height: 100%;
-    border-right: 1px solid #c6c6c6;
+    border-right: 1px solid #ddd;
     background: #f9f9f9;
     -webkit-box-flex: 1;
     -ms-flex: 1;
@@ -66,11 +66,12 @@ aside .bote {
     display: -ms-flexbox;
     display: flex;
     max-width: 100%;
-    opacity: .4;
-    border-bottom: 1px solid #c6c6c6;
+    opacity: .6;
+    border-bottom: 1px solid #ddd;
 }
 aside .bote:hover {
     opacity: 1;
+    background-color: #fff;
 }
 aside .bote:hover .remove {
     position: relative;
@@ -85,7 +86,7 @@ aside .bote .remove {
     -webkit-transition: margin-left 100ms ease-in-out;
     transition: margin-left 100ms ease-in-out;
     color: #fff;
-    background: #ff1a1a;
+    background: #ff0039;
 }
 aside .bote .remove .icon {
     position: absolute;
@@ -114,22 +115,39 @@ aside .bote .bote-inner .body {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-aside .create {
+aside .clear {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     padding: 20px;
+    color: #fff;
+    border-top: 1px solid #2780e3;
+    background-color: #2780e3;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    text-align: center;
-    font-weight: 700;
-    color: #000;
-    border-top: 1px solid #ffdf2c;
-    background-color: #f8d200;
 }
-aside .create:hover {
+aside .clear:hover {
     text-decoration: none;
+    border-top: 1px solid #1862b5;
+    background-color: #1967be;
+}
+aside .store {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 20px;
+    color: #fff;
+    border-top: 1px solid #ff7518;
+    background-color: #ff7518;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+aside .store:hover {
+    text-decoration: none;
+    border-top: 1px solid #da5800;
+    background-color: #e45c00;
 }
 main {
     display: -webkit-box;
@@ -146,12 +164,12 @@ main {
 }
 main input {
     padding: 20px;
-    border-bottom: 1px solid #c6c6c6;
+    border-bottom: 1px solid #ddd;
 }
 main textarea {
     line-height: 1.5;
     padding: 20px;
-    border-bottom: 1px solid #c6c6c6;
+    border-bottom: 1px solid #ddd;
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;

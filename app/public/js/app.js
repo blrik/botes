@@ -15,7 +15,7 @@ new Vue({
         },
         botes: [],
         save_timeout: null,
-        uid: null,
+        store: false,
     },
     computed: {
         word_count: function word_count() {
@@ -48,8 +48,7 @@ new Vue({
         store_botes: function store_botes() {
             this.touch_last_saved();
             if (!this.bote.id) {
-                this.uid = Date.now();
-                this.bote.id = this.uid;
+                this.bote.id = Date.now();
                 this.$http.post('/api/store', this.bote).then(function(response) {
                     this.botes.unshift(response.data);
                 });
@@ -59,6 +58,7 @@ new Vue({
                 });
             }
             this.fetch_botes();
+            this.store = false;
         },
         delete_bote: function delete_bote(id) {
             this.$http.delete('/api/destroy/' + id);
@@ -82,6 +82,7 @@ new Vue({
             })
         },
         save_bote: function save_bote() {
+            this.store = true;
             self = this;
             if (this.save_timeout !== null) return;
             this.save_timeout = setTimeout(function() {
