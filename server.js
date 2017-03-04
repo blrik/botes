@@ -12,6 +12,11 @@ app.set('views', './app/views');
 app.use(express.static('./app/public'));
 
 
+//routes
+app.use(require('./app/routes/index'));
+app.use(require('./app/routes/api'));
+
+
 //error
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
