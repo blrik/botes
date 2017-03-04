@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body,
+html {
+    height: 100%;
+}
+input,
+textarea {
+    max-width: 100%;
+    border: none;
+}
+textarea {
+    resize: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    text-decoration: underline;
+}
+#app {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+}
+aside {
+    overflow-y: auto;
+    min-width: 20%;
+    height: 100%;
+    border-right: 1px solid #c6c6c6;
+    background: #f9f9f9;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+aside .inner {
+    padding: 10px;
+    text-align: center;
+}
+aside .inner p {
+    margin-top: 10px;
+    color: gray;
+}
+aside .note {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    max-width: 100%;
+    opacity: .4;
+    border-bottom: 1px solid #c6c6c6;
+}
+aside .note:hover {
+    opacity: 1;
+}
+aside .note:hover .remove {
+    position: relative;
+    margin-left: 0;
+}
+aside .note .remove {
+    position: absolute;
+    display: block;
+    width: 50px;
+    margin-left: -50%;
+    cursor: pointer;
+    -webkit-transition: margin-left 100ms ease-in-out;
+    transition: margin-left 100ms ease-in-out;
+    color: #fff;
+    background: #ff1a1a;
+}
+aside .note .remove .icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+aside .note .note-inner {
+    overflow: hidden;
+    padding: 10px;
+    -webkit-box-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+}
+aside .note .note-inner .title {
+    font-size: 1.1em;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+aside .note .note-inner .body {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+main {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    -webkit-box-flex: 4;
+    -ms-flex: 4;
+    flex: 4;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+}
+main input {
+    padding: 20px;
+    border-bottom: 1px solid #c6c6c6;
+}
+main textarea {
+    line-height: 1.5;
+    padding: 20px;
+    border-bottom: 1px solid #c6c6c6;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-mask-image: -webkit-linear-gradient(top, transparent 0%, #fff 5%, #fff 95%, transparent 100%);
+}
+main footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 20px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
