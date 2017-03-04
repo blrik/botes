@@ -3,80 +3,81 @@
 
 new Vue({
     http: {
-		root: '/api',
-	},
+        root: '/api',
+    },
     el: '#app',
     data: {
-        note: {
-			id: null,
-			title: null,
-			body: null,
-			last_saved: null
-		},
-        notes: [],
+        bote: {
+            id: null,
+            title: null,
+            body: null,
+            last_saved: null
+        },
+        botes: [],
         save_timeout: null,
         i_date: Date.now(),
     },
     computed: {
         word_count: function word_count() {
-            if (!this.note.body || this.note.body.trim() === '') {
+            if (!this.bote.body || this.bote.body.trim() === '') {
                 return 0;
             }
-            return this.note.body.trim().split(' ').length;
+            return this.bote.body.trim().split(' ').length;
         },
-        notes_sorted: function notes_sorted() {
-            return this.notes.sort(function(a, b) {
+        botes_sorted: function botes_sorted() {
+            return this.botes.sort(function(a, b) {
                 return a['last_saved'] < b['last_saved'];
             });
         },
         last_saved: function last_saved() {
-            if (!this.note.last_saved) {
+            if (!this.bote.last_saved) {
                 return 'Soon';
             }
-            return moment(this.note.last_saved).format('DD.MM.YYYY H:mm:ss');
+            return moment(this.bote.last_saved).format('DD.MM.YYYY H:mm:ss');
         },
     },
     mounted: function mounted() {
-		this.fetch_notes();
-	},
+        this.fetch_botes();
+    },
     methods: {
-        fetch_notes: function fetch_notes() {
-			this.$http.get('/api').then(function (response) {
-				this.$set(this, 'notes', response.data);
-			});
-		},
-        store_notes: function store_notes() {
-            this.$http.post('/api/update', this.note).then(function (response) {
-                console.log(response.data);
+        fetch_botes: function fetch_botes() {
+            this.$http.get('/api').then(function(response) {
+                this.$set(this, 'botes', response.data);
             });
-            this.fetch_notes();
         },
-        delete_note: function delete_note(id) {
-			this.$http.delete('/api/destroy/' + id);
-            this.fetch_notes();
+        store_botes: function store_botes() {
+            this.$http.post('/api/update', this.bote).then(function(response) {
+                this.botes.unshift(response.data);
+            });
+            this.touch_last_saved();
+            this.fetch_botes();
         },
-        clear_note: function clear_note() {
-            this.note = {
+        delete_bote: function delete_bote(id) {
+            this.$http.delete('/api/destroy/' + id);
+            this.clear_bote();
+            this.fetch_botes();
+        },
+        clear_bote: function clear_bote() {
+            this.bote = {
                 id: null,
                 title: null,
                 body: null,
                 last_saved: null
             };
         },
-        open_note: function open_note(id) {
+        open_bote: function open_bote(id) {
             this.$http.get('/api/show/' + id).then(function(response) {
-				this.note.id = response.data.bote.id
-				this.note.title = response.data.bote.title
-				this.note.body = response.data.bote.body
-				this.note.last_saved = response.data.bote.last_saved
-			})
+                this.bote.id = response.data.bote.id
+                this.bote.title = response.data.bote.title
+                this.bote.body = response.data.bote.body
+                this.bote.last_saved = response.data.bote.last_saved
+            })
         },
-        save_note: function save_note() {
-            this.touch_last_saved();
-            if (!this.note.id) {
+        save_bote: function save_bote() {
+            if (!this.bote.id) {
                 this.i_date = Date.now();
-                this.note.id = this.i_date;
-                this.$http.post('/api/store', this.note).then(function (response) {
+                this.bote.id = this.i_date;
+                this.$http.post('/api/store', this.bote).then(function(response) {
                     console.log(response.data);
                 });
             }
@@ -86,7 +87,7 @@ new Vue({
             self = this;
             if (this.save_timeout !== null) return;
             this.save_timeout = setTimeout(function() {
-                self.store_notes();
+                self.store_botes();
                 self.clear_timeout();
             }, 5000);
         },
@@ -95,7 +96,7 @@ new Vue({
             this.save_timeout = null;
         },
         touch_last_saved: function touch_last_saved() {
-            this.note.last_saved = Date.now();
+            this.bote.last_saved = Date.now();
         }
     }
 });

@@ -1,19 +1,19 @@
 
 <aside>
-    <div class="inner">
-        <a v-if="notes.length" href="#" @click.prevent="clear_note">New note</a>
-        <p v-else>Boo, no notes! Get writing</p>
+    <div class='inner'>
+        <a v-if='botes.length' href='#' @click.prevent='clear_bote'>New bote</a>
+        <p v-else>Boo, no botes! Get writing</p>
     </div>
-    <div class="notes" v-if="notes.length">
-        <div class="note" v-for="note in notes_sorted">
-            <a href="#" class="remove" @click.prevent="delete_note(note.id)"><span class="icon">&times;</span></a>
-            <div class="note-inner">
-                <a href="#" class="title" @click.prevent="open_note(note.id)">
-                    <span v-if="note.title">{{ note.title }}</span>
+    <div class='botes' v-if='botes.length'>
+        <div class='bote' v-for='bote in botes_sorted'>
+            <a href='#' class='remove' @click.prevent='delete_bote(bote.id)'><span class='icon'>&times;</span></a>
+            <div class='bote-inner'>
+                <a href='#' class='title' @click.prevent='open_bote(bote.id)'>
+                    <span v-if='bote.title'>{{ bote.title }}</span>
                     <span v-else>Untitled</span>
                 </a>
-                <p class="body">
-                    <span v-if="note.body">{{ note.body }}</span>
+                <p class='body'>
+                    <span v-if='bote.body'>{{ bote.body }}</span>
                     <span v-else>Empty</span>
                 </p>
             </div>
@@ -22,8 +22,8 @@
 </aside>
 
 <main>
-    <input type="text" placeholder="enter TITLE here..." v-model="note.title" v-on:keydown="save_note">
-    <textarea placeholder="enter BOTE here..." v-model="note.body" v-on:keydown="save_note"></textarea>
+    <input type='text' placeholder='enter TITLE here...' v-model='bote.title' v-on:keydown='save_bote'>
+    <textarea placeholder='enter BOTE here...' v-model='bote.body' v-on:keydown='save_bote'></textarea>
     <footer>
         <p>Words: {{ word_count }}</p>
         <p>Saved: {{ last_saved }}</p>

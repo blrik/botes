@@ -49,7 +49,7 @@ aside .inner p {
     margin-top: 10px;
     color: gray;
 }
-aside .note {
+aside .bote {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -57,14 +57,14 @@ aside .note {
     opacity: .4;
     border-bottom: 1px solid #c6c6c6;
 }
-aside .note:hover {
+aside .bote:hover {
     opacity: 1;
 }
-aside .note:hover .remove {
+aside .bote:hover .remove {
     position: relative;
     margin-left: 0;
 }
-aside .note .remove {
+aside .bote .remove {
     position: absolute;
     display: block;
     width: 50px;
@@ -75,21 +75,21 @@ aside .note .remove {
     color: #fff;
     background: #ff1a1a;
 }
-aside .note .remove .icon {
+aside .bote .remove .icon {
     position: absolute;
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
-aside .note .note-inner {
+aside .bote .bote-inner {
     overflow: hidden;
     padding: 10px;
     -webkit-box-flex: 2;
     -ms-flex: 2;
     flex: 2;
 }
-aside .note .note-inner .title {
+aside .bote .bote-inner .title {
     font-size: 1.1em;
     display: block;
     overflow: hidden;
@@ -97,7 +97,7 @@ aside .note .note-inner .title {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-aside .note .note-inner .body {
+aside .bote .bote-inner .body {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -126,7 +126,6 @@ main textarea {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    -webkit-mask-image: -webkit-linear-gradient(top, transparent 0%, #fff 5%, #fff 95%, transparent 100%);
 }
 main footer {
     display: -webkit-box;
