@@ -1,15 +1,11 @@
 
 <aside>
-    <p class='inner' v-if='!botes.length'>Boo, no botes! Get writing</p>
-    <input type='text' v-else v-model='search' placeholder='enter TITLE your search'>
+    <p class='inner' v-if='!botes.length'>start writing</p>
+    <input type='text' v-else v-model='search' placeholder='search'>
     <div class='botes'>
         <div class='bote' v-if='botes.length' v-for='bote in botes_sorted'>
             <a href='#' class='remove' @click.prevent='delete_bote(bote.id)'><span class='icon'>&times;</span></a>
-            <div class='bote-inner'>
-                <a href='#' class='title' @click.prevent='open_bote(bote.id)'>
-                    <span v-if='bote.title'>{{ bote.title }}</span>
-                    <span v-else>Untitled</span>
-                </a>
+            <div class='bote-inner' @click.prevent='open_bote(bote.id)'>
                 <p class='body'>
                     <span v-if='bote.body'>{{ bote.body }}</span>
                     <span v-else>Empty</span>
@@ -17,13 +13,12 @@
             </div>
         </div>
     </div>
-    <a v-if='store' href='#' @click.prevent='store_botes' class='store'>store BOTE</a>
-    <a v-else-if='botes.length' href='#' @click.prevent='clear_bote' class='clear'>new BOTE</a>
+    <a v-if='store' href='#' @click.prevent='store_botes' class='store'>store bote</a>
+    <a v-else-if='botes.length' href='#' @click.prevent='clear_bote' class='clear'>new bote</a>
 </aside>
 
 <main>
-    <input type='text' placeholder='enter TITLE here...' v-model='bote.title' v-on:keydown='save_bote'>
-    <textarea placeholder='enter BOTE here...' v-model='bote.body' v-on:keydown='save_bote'></textarea>
+    <textarea placeholder='enter bote here...' v-model='bote.body' v-on:keydown='save_bote'></textarea>
     <footer>
         <p>words: {{ word_count }}</p>
         <p>saved: {{ last_saved }}</p>

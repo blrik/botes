@@ -9,7 +9,6 @@ new Vue({
     data: {
         bote: {
             id: null,
-            title: null,
             body: null,
             last_saved: null
         },
@@ -27,7 +26,7 @@ new Vue({
         },
         last_saved: function last_saved() {
             if (!this.bote.last_saved) {
-                return 'Soon';
+                return 'soon';
             }
             return moment(this.bote.last_saved).format('DD.MM.YYYY H:mm:ss');
         },
@@ -41,7 +40,7 @@ new Vue({
             }
             search = search.trim().toLowerCase();
             botes_array = botes_array.filter(function(item) {
-                if (item.title.toLowerCase().indexOf(search) !== -1) {
+                if (item.body.toLowerCase().indexOf(search) !== -1) {
                     return item;
                 }
             })
@@ -82,7 +81,6 @@ new Vue({
         clear_bote: function clear_bote() {
             this.bote = {
                 id: null,
-                title: null,
                 body: null,
                 last_saved: null
             };
@@ -90,7 +88,6 @@ new Vue({
         open_bote: function open_bote(id) {
             this.$http.get('/api/show/' + id).then(function(response) {
                 this.bote.id = response.data.bote.id
-                this.bote.title = response.data.bote.title
                 this.bote.body = response.data.bote.body
                 this.bote.last_saved = response.data.bote.last_saved
             })

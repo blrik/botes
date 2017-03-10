@@ -4,7 +4,7 @@ const router = express.Router();
 const lowdb = require('lowdb');
 const storage = require('lowdb/lib/storages/file-sync');
 const db = lowdb('db.json', { storage: storage });
-db.defaults({ botes: [], user: {} }).write();
+db.defaults({ botes: [] }).write();
 
 router.get('/api', function(req, res) {
     res.send(db.get('botes').value());
@@ -16,7 +16,7 @@ router.post('/api/store', function(req, res) {
 });
 
 router.post('/api/update', function(req, res) {
-    const bote = { title: req.body.title, body: req.body.body, last_saved: req.body.last_saved };
+    const bote = { body: req.body.body, last_saved: req.body.last_saved };
     db.get('botes').find({ id: req.body.id }).assign(bote).write();
     res.json({ bote_id: req.body.id, message: 'updated', status: true });
 });

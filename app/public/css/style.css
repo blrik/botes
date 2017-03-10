@@ -39,7 +39,7 @@ aside {
     min-width: 20%;
     height: 100%;
     border-right: 1px solid #ddd;
-    background: #f9f9f9;
+    background-color: #f9f9f9;
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -81,13 +81,13 @@ aside .bote:hover .remove {
 aside .bote .remove {
     position: absolute;
     display: block;
-    width: 50px;
+    width: 40px;
     margin-left: -50%;
     cursor: pointer;
     -webkit-transition: margin-left 100ms ease-in-out;
     transition: margin-left 100ms ease-in-out;
     color: #fff;
-    background: #ff0039;
+    background-color: #ff0039;
 }
 aside .bote .remove .icon {
     position: absolute;
@@ -102,14 +102,6 @@ aside .bote .bote-inner {
     -webkit-box-flex: 2;
     -ms-flex: 2;
     flex: 2;
-}
-aside .bote .bote-inner .title {
-    font-size: 1.1em;
-    display: block;
-    overflow: hidden;
-    margin-bottom: 10px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 aside .bote .bote-inner .body {
     overflow: hidden;
@@ -162,10 +154,6 @@ main {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-}
-main input {
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
 }
 main textarea {
     line-height: 1.5;
