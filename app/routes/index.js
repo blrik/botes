@@ -1,13 +1,8 @@
-const express = require('express');
-const router = express.Router();
+const home = require('./home');
+const api = require('./api');
 
 
-router.get('/', function(req, res) {
-    res.render('layout', {
-        page_title: 'Home',
-        page_ID: 'home'
-    });
-});
-
-
-module.exports = router;
+module.exports = function(app, db) {
+    home(app, db);
+    api(app, db);
+};

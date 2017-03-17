@@ -4,8 +4,8 @@
     <input type='text' v-else v-model='search' placeholder='search'>
     <div class='botes'>
         <div class='bote' v-if='botes.length' v-for='bote in botes_sorted'>
-            <a href='#' class='remove' @click.prevent='delete_bote(bote.id)'><span class='icon'>&times;</span></a>
-            <div class='bote-inner' @click.prevent='open_bote(bote.id)'>
+            <a href='#' class='remove' @click.prevent='delete_bote(bote._id)'><span class='icon'>&times;</span></a>
+            <div class='bote-inner' @click.prevent='open_bote(bote._id)'>
                 <p class='body'>
                     <span v-if='bote.body'>{{ bote.body }}</span>
                     <span v-else>Empty</span>

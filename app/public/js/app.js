@@ -8,7 +8,7 @@ new Vue({
     el: '#app',
     data: {
         bote: {
-            id: null,
+            _id: null,
             body: null,
             last_saved: null
         },
@@ -55,39 +55,46 @@ new Vue({
     methods: {
         fetch_botes: function fetch_botes() {
             this.$http.get('/api').then(function(response) {
-                this.$set(this, 'botes', response.data);
+                this.$set(this, 'botes', response.data.botes);
             });
         },
         store_botes: function store_botes() {
             this.touch_last_saved();
-            if (!this.bote.id) {
-                this.bote.id = Date.now();
+            if (!this.bote._id) {
                 this.$http.post('/api/store', this.bote).then(function(response) {
-                    this.botes.unshift(response.data);
+                    this.bote._id = response.data.bote._id;
+                    this.fetch_botes();
+                    this.store = false;
                 });
             } else {
-                this.$http.post('/api/update', this.bote).then(function(response) {
-                    this.botes.unshift(response.data);
+                this.$http.put('/api/update/' + this.bote._id, this.bote).then(function(response) {
+                    this.fetch_botes();
+                    this.store = false;
                 });
             }
-            this.fetch_botes();
-            this.store = false;
         },
-        delete_bote: function delete_bote(id) {
-            this.$http.delete('/api/destroy/' + id);
-            this.clear_bote();
-            this.fetch_botes();
+        delete_bote: function delete_bote(_id) {
+            if (confirm('You are ready to remove?')) {
+                var check = this.checked(1, 99);
+                var confirmation = prompt('Please enter: "' + check + '"', 1);
+                if (confirmation == check) {
+                    this.$http.delete('/api/destroy/' + _id).then(function(response) {
+                        this.clear_bote();
+                        this.fetch_botes();
+                    });
+                }
+            }
         },
         clear_bote: function clear_bote() {
             this.bote = {
-                id: null,
+                _id: null,
                 body: null,
                 last_saved: null
             };
         },
-        open_bote: function open_bote(id) {
-            this.$http.get('/api/show/' + id).then(function(response) {
-                this.bote.id = response.data.bote.id
+        open_bote: function open_bote(_id) {
+            this.$http.get('/api/show/' + _id).then(function(response) {
+                this.bote._id = response.data.bote._id
                 this.bote.body = response.data.bote.body
                 this.bote.last_saved = response.data.bote.last_saved
             })
@@ -107,6 +114,10 @@ new Vue({
         },
         touch_last_saved: function touch_last_saved() {
             this.bote.last_saved = Date.now();
+        },
+        checked: function checked(min, max) {
+            var rand = min + Math.random() * (max + 1 - min);
+            return Math.floor(rand);
         }
     }
 });

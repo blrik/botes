@@ -1,41 +1,111 @@
-const path = require('path');
-const express = require('express');
-const router = express.Router();
-const lowdb = require('lowdb');
-const storage = require('lowdb/lib/storages/file-sync');
-const db = lowdb('db.json', { storage: storage });
-db.defaults({ botes: [] }).write();
+var ObjectID = require('mongodb').ObjectID;
 
-router.get('/api', function(req, res) {
-    res.send(db.get('botes').value());
-});
+module.exports = function(app, db) {
 
-router.post('/api/store', function(req, res) {
-    db.get('botes').push(req.body).write();
-    res.json({ bote_id: req.body.id, message: 'created', status: true });
-});
+    app.get('/api', function(req, res) {
+        db.collection('botes').find({}).toArray(function(err, result) {
+            if (err) {
+                res.json({
+                    collection: false
+                });
+            } else {
+                res.json({
+                    botes: result
+                });
+            }
+        });
+    });
 
-router.post('/api/update', function(req, res) {
-    const bote = { body: req.body.body, last_saved: req.body.last_saved };
-    db.get('botes').find({ id: req.body.id }).assign(bote).write();
-    res.json({ bote_id: req.body.id, message: 'updated', status: true });
-});
+    app.post('/api/store', function(req, res) {
+        const bote = {
+            body: req.body.body,
+            last_saved: req.body.last_saved
+        };
+        db.collection('botes').insert(bote, function(err, result) {
+            if (err) {
+                res.json({
+                    bote: result.ops[0],
+                    message: 'created',
+                    status: false
+                });
+            } else {
+                res.json({
+                    bote: result.ops[0],
+                    message: 'created',
+                    status: true
+                });
+            }
+        });
+    });
 
-router.get('/api/show/:id', function(req, res) {
-    const bote_id = parseInt(req.params.id);
-    const item = db.get('botes').find({ id: bote_id }).value();
-    if (item) {
-        res.json({ bote_id: bote_id, bote: item, message: 'read', status: true });
-    } else {
-        res.json({ bote_id: bote_id, message: 'read', status: false });
-    }
-});
+    app.put('/api/update/:id', function(req, res) {
+        const bote_id = req.params.id;
+        const details = {
+            '_id': new ObjectID(bote_id)
+        };
+        const bote = {
+            body: req.body.body,
+            last_saved: req.body.last_saved
+        };
+        db.collection('botes').update(details, bote, function(err, result) {
+            if (err) {
+                res.json({
+                    bote_id: bote_id,
+                    message: 'updated',
+                    status: false
+                });
+            } else {
+                res.json({
+                    bote_id: bote_id,
+                    message: 'updated',
+                    status: true
+                });
+            }
+        });
+    });
 
-router.delete('/api/destroy/:id', function(req, res) {
-    const bote_id = parseInt(req.params.id);
-    db.get('botes').remove({ id: bote_id }).write();
-    res.json({ bote_id: bote_id, message: 'destroy', status: true });
-});
+    app.get('/api/show/:id', function(req, res) {
+        const bote_id = req.params.id;
+        const details = {
+            '_id': new ObjectID(bote_id)
+        };
+        db.collection('botes').findOne(details, function(err, result) {
+            if (err) {
+                res.json({
+                    bote_id: bote_id,
+                    message: 'read',
+                    status: false
+                });
+            } else {
+                res.json({
+                    bote_id: bote_id,
+                    bote: result,
+                    message: 'read',
+                    status: true
+                });
+            }
+        });
+    });
 
-
-module.exports = router;
+    app.delete('/api/destroy/:id', function(req, res) {
+        const bote_id = req.params.id;
+        const details = {
+            '_id': new ObjectID(bote_id)
+        };
+        db.collection('botes').remove(details, function(err, result) {
+            if (err) {
+                res.json({
+                    bote_id: bote_id,
+                    message: 'destroy',
+                    status: false
+                })
+            } else {
+                res.json({
+                    bote_id: bote_id,
+                    message: 'destroy',
+                    status: true
+                })
+            }
+        });
+    });
+};
