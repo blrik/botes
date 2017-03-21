@@ -1,0 +1,9 @@
+module.exports = {
+    url: 'mongodb://user:GWppD14@ds133340.mlab.com:33340/botes',
+    secret: 'MQ@#C0#l6}h++r@Y|UA%i3BF1qu;0n4JqZNe.;3uOH{@@:fA04t=tIL}BvCwu]f;',
+    auth: {
+        app_id: 5529845,
+        secret: 'GSECmyBa2KrjHAQQ1MJs',
+        callback: 'http://localhost:3000/auth/callback',
+    },
+};

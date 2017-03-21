@@ -3,7 +3,13 @@ var ObjectID = require('mongodb').ObjectID;
 module.exports = function(app, db) {
 
     app.get('/api', function(req, res) {
-        db.collection('botes').find({}).toArray(function(err, result) {
+        if (req.isUnauthenticated()) {
+            res.json('authorization required');
+            return;
+        }
+        db.collection('botes').find({
+            'user_id': req.user.user_id
+        }).toArray(function(err, result) {
             if (err) {
                 res.json({
                     collection: false
@@ -17,9 +23,14 @@ module.exports = function(app, db) {
     });
 
     app.post('/api/store', function(req, res) {
+        if (req.isUnauthenticated()) {
+            res.json('authorization required');
+            return;
+        }
         const bote = {
             body: req.body.body,
-            last_saved: req.body.last_saved
+            last_saved: req.body.last_saved,
+            user_id: req.user.user_id
         };
         db.collection('botes').insert(bote, function(err, result) {
             if (err) {
@@ -39,9 +50,14 @@ module.exports = function(app, db) {
     });
 
     app.put('/api/update/:id', function(req, res) {
+        if (req.isUnauthenticated()) {
+            res.json('authorization required');
+            return;
+        }
         const bote_id = req.params.id;
         const details = {
-            '_id': new ObjectID(bote_id)
+            '_id': new ObjectID(bote_id),
+            'user_id': req.user.user_id
         };
         const bote = {
             body: req.body.body,
@@ -65,9 +81,14 @@ module.exports = function(app, db) {
     });
 
     app.get('/api/show/:id', function(req, res) {
+        if (req.isUnauthenticated()) {
+            res.json('authorization required');
+            return;
+        }
         const bote_id = req.params.id;
         const details = {
-            '_id': new ObjectID(bote_id)
+            '_id': new ObjectID(bote_id),
+            'user_id': req.user.user_id
         };
         db.collection('botes').findOne(details, function(err, result) {
             if (err) {
@@ -88,9 +109,14 @@ module.exports = function(app, db) {
     });
 
     app.delete('/api/destroy/:id', function(req, res) {
+        if (req.isUnauthenticated()) {
+            res.json('authorization required');
+            return;
+        }
         const bote_id = req.params.id;
         const details = {
-            '_id': new ObjectID(bote_id)
+            '_id': new ObjectID(bote_id),
+            'user_id': req.user.user_id
         };
         db.collection('botes').remove(details, function(err, result) {
             if (err) {
