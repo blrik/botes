@@ -3,8 +3,13 @@
   "version": "0.0.3",
   "description": "botes",
   "main": "index.js",
+  "engines": {
+      "node": "6.9.x",
+      "npm": "3.10.x"
+  },
   "scripts": {
-    "dev": "nodemon server.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
