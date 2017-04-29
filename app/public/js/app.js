@@ -18,15 +18,9 @@ new Vue({
         search: '',
     },
     computed: {
-        word_count: function word_count() {
-            if (!this.bote.body || this.bote.body.trim() === '') {
-                return 0;
-            }
-            return this.bote.body.trim().split(' ').length;
-        },
         last_saved: function last_saved() {
             if (!this.bote.last_saved) {
-                return 'soon';
+                return moment(Date.now()).format('DD.MM.YYYY H:mm:ss');
             }
             return moment(this.bote.last_saved).format('DD.MM.YYYY H:mm:ss');
         },
@@ -58,7 +52,7 @@ new Vue({
                 this.$set(this, 'botes', response.data.botes);
             });
         },
-        store_botes: function store_botes() {
+        store_bote: function store_bote() {
             this.touch_last_saved();
             if (!this.bote._id) {
                 this.$http.post('/api/store', this.bote).then(function(response) {
@@ -67,17 +61,17 @@ new Vue({
                     this.store = false;
                 });
             } else {
-                this.$http.put('/api/update/' + this.bote._id, this.bote).then(function(response) {
+                this.$http.post('/api/update/' + this.bote._id, this.bote).then(function(response) {
                     this.fetch_botes();
                     this.store = false;
                 });
             }
         },
         delete_bote: function delete_bote(_id) {
-            if (confirm('You are ready to remove?')) {
+            if (confirm('вы готовы удалить?')) {
                 var check = this.checked(1, 99);
-                var confirmation = prompt('Please enter: "' + check + '"', 1);
-                if (confirmation == check) {
+                var confirm_check = prompt('пожалуйста входите число: "' + check + '"', 1);
+                if (confirm_check == check) {
                     this.$http.delete('/api/destroy/' + _id).then(function(response) {
                         this.clear_bote();
                         this.fetch_botes();
@@ -88,6 +82,7 @@ new Vue({
         clear_bote: function clear_bote() {
             this.bote = {
                 _id: null,
+                title: null,
                 body: null,
                 last_saved: null
             };
@@ -95,6 +90,7 @@ new Vue({
         open_bote: function open_bote(_id) {
             this.$http.get('/api/show/' + _id).then(function(response) {
                 this.bote._id = response.data.bote._id
+                this.bote.title = response.data.bote.title
                 this.bote.body = response.data.bote.body
                 this.bote.last_saved = response.data.bote.last_saved
             })
@@ -104,9 +100,9 @@ new Vue({
             self = this;
             if (this.save_timeout !== null) return;
             this.save_timeout = setTimeout(function() {
-                self.store_botes();
+                self.store_bote();
                 self.clear_timeout();
-            }, 5000);
+            }, 10000);
         },
         clear_timeout: function clear_timeout() {
             clearInterval(this.save_timeout);

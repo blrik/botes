@@ -4,10 +4,12 @@ const passport = require('passport');
 module.exports = function(app) {
     app.get('/auth', function(req, res) {
         if (req.isAuthenticated()) {
-            res.redirect('/');
-            return;
+            return res.redirect('/');
         }
-        res.json('go to: /auth/vk');
+        res.render('auth', {
+            page_title: 'auth',
+            page_id: 'auth',
+        });
     });
     app.get('/auth/vk', passport.authenticate('vkontakte'));
     app.get('/auth/callback', passport.authenticate('vkontakte', {

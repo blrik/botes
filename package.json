@@ -4,8 +4,8 @@
   "description": "botes",
   "main": "index.js",
   "engines": {
-      "node": "6.9.x",
-      "npm": "3.10.x"
+    "node": "6.9.x",
+    "npm": "3.10.x"
   },
   "scripts": {
     "start": "node index.js",
@@ -25,6 +25,10 @@
     "passport-vkontakte": "^0.3.2"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.3.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
     "nodemon": "^1.11.0"
   }
 }

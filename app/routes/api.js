@@ -4,8 +4,10 @@ module.exports = function(app, db) {
 
     app.get('/api', function(req, res) {
         if (req.isUnauthenticated()) {
-            res.json('authorization required');
-            return;
+            return res.json({
+                message: 'authorization required',
+                status: false
+            });
         }
         db.collection('botes').find({
             'user_id': req.user.user_id
@@ -24,35 +26,40 @@ module.exports = function(app, db) {
 
     app.post('/api/store', function(req, res) {
         if (req.isUnauthenticated()) {
-            res.json('authorization required');
-            return;
+            return res.json({
+                message: 'authorization required',
+                status: false
+            });
         }
         const bote = {
+            user_id: req.user.user_id,
+            title: req.body.title,
             body: req.body.body,
             last_saved: req.body.last_saved,
-            user_id: req.user.user_id
         };
         db.collection('botes').insert(bote, function(err, result) {
             if (err) {
                 res.json({
                     bote: result.ops[0],
-                    message: 'created',
+                    message: 'bote not created',
                     status: false
                 });
             } else {
                 res.json({
                     bote: result.ops[0],
-                    message: 'created',
+                    message: 'bote created',
                     status: true
                 });
             }
         });
     });
 
-    app.put('/api/update/:id', function(req, res) {
+    app.post('/api/update/:id', function(req, res) {
         if (req.isUnauthenticated()) {
-            res.json('authorization required');
-            return;
+            return res.json({
+                message: 'authorization required',
+                status: false
+            });
         }
         const bote_id = req.params.id;
         const details = {
@@ -60,20 +67,22 @@ module.exports = function(app, db) {
             'user_id': req.user.user_id
         };
         const bote = {
+            user_id: req.user.user_id,
+            title: req.body.title,
             body: req.body.body,
-            last_saved: req.body.last_saved
+            last_saved: req.body.last_saved,
         };
         db.collection('botes').update(details, bote, function(err, result) {
             if (err) {
                 res.json({
                     bote_id: bote_id,
-                    message: 'updated',
+                    message: 'bote not updated',
                     status: false
                 });
             } else {
                 res.json({
                     bote_id: bote_id,
-                    message: 'updated',
+                    message: 'bote updated',
                     status: true
                 });
             }
@@ -82,8 +91,10 @@ module.exports = function(app, db) {
 
     app.get('/api/show/:id', function(req, res) {
         if (req.isUnauthenticated()) {
-            res.json('authorization required');
-            return;
+            return res.json({
+                message: 'authorization required',
+                status: false
+            });
         }
         const bote_id = req.params.id;
         const details = {
@@ -94,14 +105,14 @@ module.exports = function(app, db) {
             if (err) {
                 res.json({
                     bote_id: bote_id,
-                    message: 'read',
+                    message: 'bote not read',
                     status: false
                 });
             } else {
                 res.json({
                     bote_id: bote_id,
                     bote: result,
-                    message: 'read',
+                    message: 'bote read',
                     status: true
                 });
             }
@@ -110,8 +121,10 @@ module.exports = function(app, db) {
 
     app.delete('/api/destroy/:id', function(req, res) {
         if (req.isUnauthenticated()) {
-            res.json('authorization required');
-            return;
+            return res.json({
+                message: 'authorization required',
+                status: false
+            });
         }
         const bote_id = req.params.id;
         const details = {
@@ -122,13 +135,13 @@ module.exports = function(app, db) {
             if (err) {
                 res.json({
                     bote_id: bote_id,
-                    message: 'destroy',
+                    message: 'bote not deleted',
                     status: false
                 })
             } else {
                 res.json({
                     bote_id: bote_id,
-                    message: 'destroy',
+                    message: 'bote deleted',
                     status: true
                 })
             }

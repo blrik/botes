@@ -4,8 +4,8 @@ module.exports = function(app, db) {
             res.redirect('/auth');
             return;
         }
-        res.render('layout', {
-            page_title: 'Botes',
+        res.render('app', {
+            page_title: 'botes',
             page_id: 'home',
             user: req.user,
         });
