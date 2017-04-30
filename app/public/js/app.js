@@ -9,6 +9,7 @@ new Vue({
     data: {
         bote: {
             _id: null,
+            title: null,
             body: null,
             last_saved: null
         },
@@ -34,7 +35,7 @@ new Vue({
             }
             search = search.trim().toLowerCase();
             botes_array = botes_array.filter(function(item) {
-                if (item.body.toLowerCase().indexOf(search) !== -1) {
+                if (item.title.toLowerCase().indexOf(search) !== -1) {
                     return item;
                 }
             })
@@ -50,20 +51,24 @@ new Vue({
         fetch_botes: function fetch_botes() {
             this.$http.get('/api').then(function(response) {
                 this.$set(this, 'botes', response.data.botes);
+                this.clear_timeout();
             });
         },
         store_bote: function store_bote() {
-            this.touch_last_saved();
             if (!this.bote._id) {
                 this.$http.post('/api/store', this.bote).then(function(response) {
                     this.bote._id = response.data.bote._id;
                     this.fetch_botes();
                     this.store = false;
+                    this.clear_timeout();
+                    this.touch_last_saved();
                 });
             } else {
                 this.$http.post('/api/update/' + this.bote._id, this.bote).then(function(response) {
                     this.fetch_botes();
                     this.store = false;
+                    this.clear_timeout();
+                    this.touch_last_saved();
                 });
             }
         },
@@ -75,6 +80,7 @@ new Vue({
                     this.$http.delete('/api/destroy/' + _id).then(function(response) {
                         this.clear_bote();
                         this.fetch_botes();
+                        this.clear_timeout();
                     });
                 }
             }
@@ -102,7 +108,7 @@ new Vue({
             this.save_timeout = setTimeout(function() {
                 self.store_bote();
                 self.clear_timeout();
-            }, 10000);
+            }, 5000);
         },
         clear_timeout: function clear_timeout() {
             clearInterval(this.save_timeout);

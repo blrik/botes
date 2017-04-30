@@ -7,15 +7,17 @@
     <body id="<%= page_id %>">
         <div id="app">
             <aside>
-                <p class='inner' v-if='!botes.length'>начните писать</p>
+                <p class='inner' v-if='!botes.length'>список пуст</p>
                 <input type='text' v-else v-model='search' placeholder='поиск'>
                 <div class='botes'>
                     <div class='bote' v-if='botes.length' v-for='bote in botes_sorted'>
                         <a href='#' class='remove' @click.prevent='delete_bote(bote._id)'><span class='icon'>&times;</span></a>
                         <div class='bote-inner' @click.prevent='open_bote(bote._id)'>
+                            <span v-if=' bote.title'>{{  bote.title }}</span>
+                            <span v-else>нет названия</span>
                             <p class='body'>
                                 <span v-if='bote.body'>{{ bote.body }}</span>
-                                <span v-else>пусто</span>
+                                <span v-else>нет данных</span>
                             </p>
                         </div>
                     </div>
@@ -25,7 +27,8 @@
             </aside>
 
             <main>
-                <textarea placeholder='введите bote здесь...' v-model='bote.body' v-on:keydown='save_bote'></textarea>
+                <input type='text' placeholder='введи название...' v-model='bote.title' v-on:keydown='save_bote'>
+                <textarea placeholder='начинай писать...' v-model='bote.body' v-on:keydown='save_bote'></textarea>
                 <footer>
                     <p>последнее сохранение: {{ last_saved }}</p>
                 </footer>

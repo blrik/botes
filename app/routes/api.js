@@ -13,8 +13,9 @@ module.exports = function(app, db) {
             'user_id': req.user.user_id
         }).toArray(function(err, result) {
             if (err) {
-                res.json({
-                    collection: false
+                return res.json({
+                    message: 'no data',
+                    status: false
                 });
             } else {
                 res.json({
@@ -40,7 +41,6 @@ module.exports = function(app, db) {
         db.collection('botes').insert(bote, function(err, result) {
             if (err) {
                 res.json({
-                    bote: result.ops[0],
                     message: 'bote not created',
                     status: false
                 });

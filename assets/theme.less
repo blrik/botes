@@ -1,4 +1,8 @@
-@import "./normalize.less";
+@import './normalize.less';
+
+@blue: #009fff;
+@red: #e00;
+@orange: #ff9800;
 
 * {
     box-sizing: border-box;
@@ -11,6 +15,14 @@
 body,
 html {
     height: 100%;
+}
+body {
+    color: #000;
+    direction: ltr;
+    font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
+    line-height: 1.154;
+    font-weight: 400;
 }
 input,
 textarea {
@@ -32,147 +44,151 @@ a:hover {
     display: -ms-flexbox;
     display: flex;
     height: 100%;
-}
-aside {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-direction: column;
-    min-width: 20%;
-    height: 100%;
-    border-right: 1px solid #ddd;
-    background-color: #f9f9f9;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-}
-aside .inner {
-    margin-top: 10px;
-    padding: 10px;
-    color: #808080;
-}
-aside input {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-aside .botes {
-    overflow-y: auto;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-}
-aside .bote {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    max-width: 100%;
-    opacity: .6;
-    border-bottom: 1px solid #ddd;
-}
-aside .bote:hover {
-    opacity: 1;
-    background-color: #fff;
-}
-aside .bote:hover .remove {
-    position: relative;
-    margin-left: 0;
-}
-aside .bote .remove {
-    position: absolute;
-    display: block;
-    width: 40px;
-    margin-left: -50%;
-    cursor: pointer;
-    -webkit-transition: margin-left 100ms ease-in-out;
-    transition: margin-left 100ms ease-in-out;
-    color: #fff;
-    background-color: #ff0039;
-}
-aside .bote .remove .icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-aside .bote .bote-inner {
-    overflow: hidden;
-    padding: 10px;
-    -webkit-box-flex: 2;
-    -ms-flex: 2;
-    flex: 2;
-}
-aside .bote .bote-inner .body {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-aside .clear {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 20px;
-    color: #fff;
-    border-top: 1px solid #2780e3;
-    background-color: #2780e3;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-}
-aside .clear:hover {
-    text-decoration: none;
-    border-top: 1px solid #1862b5;
-    background-color: #1967be;
-}
-aside .store {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 20px;
-    color: #fff;
-    border-top: 1px solid #ff7518;
-    background-color: #ff7518;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-}
-aside .store:hover {
-    text-decoration: none;
-    border-top: 1px solid #da5800;
-    background-color: #e45c00;
-}
-main {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    -webkit-box-flex: 4;
-    -ms-flex: 4;
-    flex: 4;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-}
-main textarea {
-    line-height: 1.5;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-}
-main footer {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 20px;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
+    aside {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-direction: column;
+        min-width: 20%;
+        height: 100%;
+        border-right: 1px solid #ddd;
+        background-color: #f9f9f9;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        .inner {
+            margin-top: 10px;
+            padding: 10px;
+            color: #808080;
+        }
+        input {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .botes {
+            overflow-y: auto;
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+        }
+        .bote {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            max-width: 100%;
+            opacity: .6;
+            border-bottom: 1px solid #ddd;
+            &:hover {
+                opacity: 1;
+                background-color: #fff;
+                .remove {
+                    position: relative;
+                    margin-left: 0;
+                }
+            }
+            .remove {
+                position: absolute;
+                display: block;
+                width: 40px;
+                margin-left: -50%;
+                cursor: pointer;
+                -webkit-transition: margin-left 100ms ease-in-out;
+                transition: margin-left 100ms ease-in-out;
+                color: #fff;
+                background-color: @red;
+                .icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    -webkit-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+                }
+            }
+            .bote-inner {
+                overflow: hidden;
+                padding: 10px;
+                -webkit-box-flex: 2;
+                -ms-flex: 2;
+                flex: 2;
+                .body {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+        .clear {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 20px;
+            color: #fff;
+            border-top: 1px solid darken(@blue, 5%);
+            background-color: @blue;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            &:hover {
+                text-decoration: none;
+                border-top: 1px solid darken(@blue, 10%);
+                background-color: darken(@blue, 5%);
+            }
+        }
+        .store {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 20px;
+            color: #fff;
+            border-top: 1px solid darken(@orange, 5%);
+            background-color: @orange;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            &:hover {
+                text-decoration: none;
+                border-top: 1px solid darken(@orange, 10%);
+                background-color: darken(@orange, 5%);
+            }
+        }
+    }
+    main {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        -webkit-box-flex: 4;
+        -ms-flex: 4;
+        flex: 4;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        input {
+          padding: 20px;
+          border-bottom: 1px solid #ddd;
+        }
+        textarea {
+            line-height: 1.5;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+        }
+        footer {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 20px;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
+    }
 }
 #auth {
     .auth_url {
@@ -205,10 +221,11 @@ main footer {
             background-image: none;
             border: 1px solid transparent;
             border-radius: 4px;
-            color: #333;
-            background-color: #fff;
-            border-color: #1862b5;
+            color: #fff;
+            background-color: @blue;
+            border-color: darken(@blue, 5%);
             &:hover {
+                background-color: darken(@blue, 5%);
                 text-decoration: none;
             }
         }
